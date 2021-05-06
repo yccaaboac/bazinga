@@ -1,20 +1,21 @@
-import Cookies from 'js-cookie'
-import Config from '@/settings'
+import Cookies from "js-cookie";
+import Config from "@/settings";
 
-const TokenKey = Config.TokenKey
+const TokenKey = Config.TokenKey;
 
 export function getToken() {
-  return 'logged'
-  // return Cookies.get(TokenKey)
+  return Cookies.get(TokenKey);
 }
 
 export function setToken(token, rememberMe) {
   if (rememberMe) {
-    return Cookies.set(TokenKey, token, { expires: Config.tokenCookieExpires })
-  } else return Cookies.set(TokenKey, token)
+    return Cookies.set(TokenKey, token, { expires: Config.tokenCookieExpires });
+  } else {
+    //默认情况下，浏览器关闭，Cookies过期
+    return Cookies.set(TokenKey, token);
+  }
 }
 
 export function removeToken() {
-  return Cookies.remove(TokenKey)
+  return Cookies.remove(TokenKey);
 }
-

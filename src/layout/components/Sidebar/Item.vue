@@ -1,34 +1,30 @@
 <script>
 export default {
-  name: 'MenuItem',
+  name: "MenuItem",
   functional: true,
   props: {
     icon: {
       type: String,
-      default: ''
+      default: "",
     },
     title: {
       type: String,
-      default: ''
-    }
+      default: "",
+    },
   },
   render(h, context) {
-    const { icon, title } = context.props
-    const vnodes = []
+    const { icon, title } = context.props;
+    const vnodes = [];
 
     if (icon) {
-      vnodes.push(<svg-icon icon-class={icon}/>)
+      vnodes.push(<svg-icon icon-class={icon} />);
     }
 
     if (title) {
-      vnodes.push(<span>{(title)}</span>)
+      vnodes.push(<span slot="title">{title}</span>);
     }
     // return h('div',vnodes)也可以，为啥？
     return vnodes;
-  }
-}
+  },
+};
 </script>
-
-<style scoped>
-
-</style>

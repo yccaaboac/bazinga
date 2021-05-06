@@ -1,29 +1,50 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Layout from '../layout'
+import Vue from "vue";
+import Router from "vue-router";
+import Layout from "../layout";
 
-Vue.use(Router)
+Vue.use(Router);
 
 export const constantRouterMap = [
   {
-    path: '/',
+    path: "/login",
+    component: (resolve) => require(["@/views/login"], resolve),
+    hidden: true,
+  },
+  {
+    path: "/404",
+    component: (resolve) => require(["@/views/features/404"], resolve),
+    hidden: true,
+  },
+  {
+    path: "/",
     component: Layout,
     // name: Layout,
-    redirect: '/dashboard',
+    redirect: "/dashboard",
     children: [
       {
-        path: 'dashboard',
-        component: (resolve) => require(['@/views/home'], resolve),
-        name: 'Dashboard',
-        meta: { title: '首页', icon: 'index', affix: true, noCache: true }
-      }
-    ]
-  }
-]
+        path: "dashboard",
+        component: (resolve) => require(["@/views/home"], resolve),
+        name: "Dashboard",
+        meta: { title: "首页", icon: "index", affix: true, noCache: true },
+      },
+    ],
+  },
+  {
+    path: "/redirect",
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: "/redirect/:path*",
+        component: (resolve) => require(["@/views/features/redirect"], resolve),
+      },
+    ],
+  },
+];
 
 export default new Router({
   // mode: 'hash',
-  mode: 'history',
-  // scrollBehavior: () => ({ y: 0 }),
-  routes: constantRouterMap
-})
+  mode: "history",
+  scrollBehavior: () => ({ y: 0 }),
+  routes: constantRouterMap,
+});
