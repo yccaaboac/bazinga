@@ -11,14 +11,16 @@ NProgress.configure({ showSpinner: false });
 const whiteList = ["/login"];
 
 router.beforeEach((to, from, next) => {
-  // debugger;
   if (to.meta.title) {
+    //当未定义或未赋值时，结果为false；
+    //当为字符串类型时，长度为0即false，长度大于0即true；
+    //当为数字类型时，等于0为false，不等于0为true。
     document.title = to.meta.title + " - " + Config.title;
   }
   NProgress.start();
 
   if (getToken()) {
-    // debugger;
+    //Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiIxOWJhZWY4MmI4NTQ0NmIwOGM5MzYwZjU3NzY5ZmZiNCIsInVzZXIiOiJhZG1pbiIsInN1YiI6ImFkbWluIn0.e_fiZiq3vaHOQYJpF_gxaET8xDbkuEoHvJUzzHBzWNmKKOEcK-KmmNhA6vav_B2IeXD4ljBOEynT06-9zxwNxw
     //已经登录且要跳转的页面是登录页面
     if (to.path === "/login") {
       next({ path: "/" });
@@ -30,13 +32,11 @@ router.beforeEach((to, from, next) => {
         store
           .dispatch("GetInfo")
           .then(() => {
-            // debugger;
             // 拉取user_info
             // 动态路由，拉取菜单
             loadMenus(next, to);
           })
           .catch(() => {
-            // debugger;
             store.dispatch("LogOut").then(() => {
               location.reload();
             });

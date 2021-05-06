@@ -52,6 +52,7 @@ const user = {
     },
     // 获取用户信息
     GetInfo({ commit }) {
+      //GetInfo(store) {  //获取到当前模块的：{getters: {…}, state: {…}, rootGetters: {…}, dispatch: ƒ, commit: ƒ, …}
       return new Promise((resolve, reject) => {
         getInfo()
           .then((res) => {
@@ -94,12 +95,21 @@ export const logOut = (commit) => {
 export const setUserInfo = (res, commit) => {
   // 如果没有任何权限，则赋予一个默认的权限，避免请求死循环
   // console.log(res.roles);["admin"]
+  console.log(res);
   if (res.roles.length === 0) {
     commit("SET_ROLES", ["ROLE_SYSTEM_DEFAULT"]);
   } else {
-    commit("SET_ROLES", res.roles);
+    commit("SET_ROLES", res.roles);//roles: ["admin", __ob__: Observer]
   }
   commit("SET_USER", res.user);
+  // user:
+  //   ...
+  //   roles: Array(1)
+  //   0:
+  //     dataScope: "全部"
+  //     id: 1
+  //     level: 1
+  //     name: "超级管理员"
 };
 
 export default user;

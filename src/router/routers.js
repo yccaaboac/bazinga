@@ -35,7 +35,7 @@ export const constantRouterMap = [
     hidden: true,
     children: [
       {
-        path: "/redirect/:path*",
+        path: "/redirect/:path",
         component: (resolve) => require(["@/views/features/redirect"], resolve),
       },
     ],
@@ -45,6 +45,6 @@ export const constantRouterMap = [
 export default new Router({
   // mode: 'hash',
   mode: "history",
-  scrollBehavior: () => ({ y: 0 }),
+  scrollBehavior: () => ({ y: 0 }),//当切换到新路由时，简单地让页面滚动到顶部
   routes: constantRouterMap,
 });
